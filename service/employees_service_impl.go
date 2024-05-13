@@ -27,8 +27,8 @@ func (t *EmployeeServiceImpl) Delete(employeesId int) {
 }
 
 // FindAll implements EmployeeService
-func (t *EmployeeServiceImpl) FindAll() []data.Employee {
-	result := t.EmployeeRepository.FindAll()
+func (t *EmployeeServiceImpl) FindAll(limit, page int) data.AllEmployeesResponse {
+	result := t.EmployeeRepository.FindAll(limit, page)
 	return result
 }
 

@@ -6,3 +6,9 @@ type Employee struct {
 	Position string
 	Salary   float64 // can be taken as uint64 to remove floating point error
 }
+
+type AllEmployeesResponse struct {
+	Emplyoyees []Employee
+	Count      int
+	Page       int
+}

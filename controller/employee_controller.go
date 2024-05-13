@@ -88,11 +88,24 @@ func (controller *EmployeeController) FindById(ctx *gin.Context) {
 
 func (controller *EmployeeController) FindAll(ctx *gin.Context) {
 	log.Info().Msg("findAll employees")
-	Employee := controller.employeesService.FindAll()
+	var limit, page int
+	var err error
+
+	if ctx.Query("page") != "" {
+		page, err = strconv.Atoi(ctx.Query("page"))
+		helper.ErrorPanic(err)
+	}
+	if ctx.Query("limit") != "" {
+		limit, err = strconv.Atoi(ctx.Query("limit"))
+		helper.ErrorPanic(err)
+
+	}
+
+	employees := controller.employeesService.FindAll(limit, page)
 	webResponse := response.Response{
 		Code:   http.StatusOK,
 		Status: "Ok",
-		Data:   Employee,
+		Data:   employees,
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.JSON(http.StatusOK, webResponse)

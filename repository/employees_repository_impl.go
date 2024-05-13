@@ -12,6 +12,22 @@ type EmployeeRepositoryImpl struct {
 	Db *gorm.DB
 }
 
+type paginate struct {
+	limit int
+	page  int
+}
+
+func newPaginate(limit int, page int) *paginate {
+	return &paginate{limit: limit, page: page}
+}
+
+func (p *paginate) paginatedResult(db *gorm.DB) *gorm.DB {
+	offset := (p.page - 1) * p.limit
+
+	return db.Offset(offset).
+		Limit(p.limit)
+}
+
 func NewEmployeeREpositoryImpl(Db *gorm.DB) EmployeeRepository {
 	return &EmployeeRepositoryImpl{Db: Db}
 }
@@ -22,11 +38,24 @@ func (t *EmployeeRepositoryImpl) Delete(employeeId int) {
 	helper.ErrorPanic(result.Error)
 }
 
-func (t *EmployeeRepositoryImpl) FindAll() []data.Employee {
+func (t *EmployeeRepositoryImpl) FindAll(limit, page int) data.AllEmployeesResponse {
 	var employees []data.Employee
-	result := t.Db.Find(&employees)
+
+	if limit == 0 {
+		limit = 10
+	}
+	if page == 0 {
+		page = 1
+	}
+
+	result := t.Db.Scopes(newPaginate(limit, page).paginatedResult).Find(&employees)
 	helper.ErrorPanic(result.Error)
-	return employees
+
+	return data.AllEmployeesResponse{
+		Emplyoyees: employees,
+		Count:      len(employees),
+		Page:       page,
+	}
 }
 
 func (t *EmployeeRepositoryImpl) FindById(employeesId int) (employee data.Employee, err error) {

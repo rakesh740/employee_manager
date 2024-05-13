@@ -4,22 +4,9 @@ import (
 	"employee_manager/data"
 	"encoding/json"
 	"io"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
-
-func EncodeEmployee(e data.Employee) []byte {
-	b, err := json.Marshal(e)
-	if err != nil {
-		//
-	}
-	return b
-}
-
-func EncodeInt(id int) []byte {
-	return []byte(strconv.Itoa(id))
-}
 
 func decodeEmployee(c *gin.Context) (data.Employee, error) {
 	e := data.Employee{}

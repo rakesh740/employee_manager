@@ -9,5 +9,5 @@ type EmployeeService interface {
 	Update(employees data.Employee)
 	Delete(employeesId int)
 	FindById(employeesId int) data.Employee
-	FindAll() []data.Employee
+	FindAll(limit, page int) data.AllEmployeesResponse
 }

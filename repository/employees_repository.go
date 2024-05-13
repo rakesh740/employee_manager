@@ -9,5 +9,5 @@ type EmployeeRepository interface {
 	Update(employees data.Employee)
 	Delete(employeesId int)
 	FindById(employeesId int) (employees data.Employee, err error)
-	FindAll() []data.Employee
+	FindAll(limit, page int) data.AllEmployeesResponse
 }
