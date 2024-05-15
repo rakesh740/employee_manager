@@ -42,10 +42,5 @@ func (t *EmployeeServiceImpl) FindById(employeesId int) data.Employee {
 
 // Update implements EmployeeService
 func (t *EmployeeServiceImpl) Update(employees data.Employee) {
-	employeeData, err := t.EmployeeRepository.FindById(employees.ID)
-	helper.ErrorPanic(err)
-	employeeData.Name = employees.Name
-	employeeData.Position = employees.Position
-	employeeData.Salary = employees.Salary
-	t.EmployeeRepository.Update(employeeData)
+	t.EmployeeRepository.Update(employees)
 }

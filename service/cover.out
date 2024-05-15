@@ -1,0 +1,7 @@
+mode: set
+employee_manager/service/employees_service_impl.go:13.95,17.2 1 1
+employee_manager/service/employees_service_impl.go:20.63,22.2 1 1
+employee_manager/service/employees_service_impl.go:25.55,27.2 1 1
+employee_manager/service/employees_service_impl.go:30.82,33.2 2 1
+employee_manager/service/employees_service_impl.go:36.71,41.2 3 1
+employee_manager/service/employees_service_impl.go:44.63,46.2 1 1

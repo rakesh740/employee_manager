@@ -70,6 +70,7 @@ func (controller *EmployeeController) Delete(ctx *gin.Context) {
 }
 
 func (controller *EmployeeController) FindById(ctx *gin.Context) {
+
 	log.Info().Msg("findbyid employees")
 	employeeId := ctx.Param("employeeId")
 	id, err := strconv.Atoi(employeeId)
